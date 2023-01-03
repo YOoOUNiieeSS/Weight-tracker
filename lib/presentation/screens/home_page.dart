@@ -3,9 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:task/core/utils/app_color.dart';
+import 'package:task/core/utils/app_routes.dart';
 import 'package:task/core/widgets/elevated_button.dart';
 import 'package:task/core/widgets/myTextFormField.dart';
 import 'package:task/domain/entities/weight_entity.dart';
+import 'package:task/presentation/provider/main_provider.dart';
 import 'package:task/presentation/provider/weight_provider.dart';
 import 'package:task/injection_container.dart' as di;
 
@@ -66,6 +68,14 @@ class HomePage extends StatelessWidget {
                     onPressed: () async {
                       showMyDialog(weightProvider: weightProvider,context: context,text: 'Add');
                     }),
+                const SizedBox(height: 20,),
+                myElevatedButton(
+                    text: 'sign out',
+                    onPressed: ()async{
+                      await MainProvider().signOut();
+                      Navigator.pushReplacementNamed(context, AppRoutes.signInScreen);
+                    }
+                ),
               ],
             ),
           ),
@@ -109,7 +119,7 @@ class HomePage extends StatelessWidget {
                         Navigator.of(context).pop();
                       }
                     }
-                  })
+                  }),
                 ],
               ),
             )),
